@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}À propos · TalentInsight Analytics{% endblock %}
+{% block h1 %}À propos{% endblock %}
+{% block lead %}Le projet, ses données, ses outils et sa méthode en un coup d'œil.{% endblock %}
+{% block content %}
+{% set k = r.kpi %}
+
+<section class="card reveal">
+  <h2>Le projet</h2>
+  <p><b>TalentInsight Analytics</b> transforme un projet de Machine Learning en dashboard interactif pour analyser des données RH : exploration, préparation des données, régression du salaire, classification de l'attrition et simulation.</p>
+  <div class="grid-3">
+    <div class="mini"><b>💰 Prédire le salaire</b><br>Régression linéaire du salaire mensuel (MAD) d'un employé.</div>
+    <div class="mini"><b>🎯 Détecter l'attrition</b><br>SVM, KNN, Decision Tree et Random Forest, avec un focus sur le Recall de la classe 1.</div>
+    <div class="mini"><b>🧭 Éclairer les décisions</b><br>Analyser les données RH pour repérer les leviers (satisfaction, charge de travail…).</div>
+  </div>
+</section>
+
+<section class="grid-2">
+  <div class="card reveal">
+    <h2>Technologies</h2>
+    <p>Python · Flask · HTML5 / CSS3 / JavaScript · Pandas · NumPy · Scikit-learn · SciPy · Matplotlib / Seaborn · Joblib</p>
+    <p class="note">Sans React, Node.js, Docker ni base de données. Les modèles sont entraînés une fois puis rechargés avec Joblib.</p>
+  </div>
+  <div class="card reveal">
+    <h2>Le dataset</h2>
+    <p>Le fichier <code>rh_employes.csv</code> contient <b>{{ k.n_raw }} employés</b>, soit <b>{{ k.n_clean }}</b> après suppression de {{ k.n_raw - k.n_clean }} doublons, avec <b>{{ k.n_cols }} colonnes</b> : profil (âge, genre, ville, diplôme), poste (département, niveau, expérience, ancienneté), charge et satisfaction, salaire mensuel en MAD et attrition.</p>
+    <p class="note">Les graphiques et les modèles utilisent un échantillon stratifié de {{ k.n_sample }} employés.</p>
+  </div>
+</section>
+
+<section class="card reveal">
+  <h2>Méthodologie</h2>
+  <ul>
+    <li>Le CSV original n'est jamais modifié.</li>
+    <li>Séparation train / test 80 / 20 stratifiée, <b>avant</b> d'apprendre le preprocessing (pas de data leakage).</li>
+    <li>Validation croisée avec preprocessing refait dans chaque fold.</li>
+    <li>Aucun GridSearchCV ni RandomizedSearchCV.</li>
+    <li>Tous les chiffres affichés sont calculés, rien n'est saisi à la main.</li>
+  </ul>
+</section>
+
+<section class="card reveal">
+  <h2>Auteure et encadrement</h2>
+  <p><b>Développé par Hanane Bouzidi.</b><br>Projet du module Machine Learning · Formateur : SALHI Abderrahman.</p>
+</section>
+
+<p class="note">Avertissement : les prédictions sont expérimentales (petit échantillon) et ne doivent pas être utilisées seules pour prendre des décisions concernant des employés.</p>
+{% endblock %}

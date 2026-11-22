@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% from "base.html" import fig %}
+{% block title %}Classification · TalentInsight{% endblock %}
+{% block h1 %}Classification : détection de l'attrition{% endblock %}
+{% block lead %}4 modèles comparés sur les mêmes données — priorité au Recall de la classe 1 (employés qui quittent).{% endblock %}
+{% block content %}
+{% set c = r.clf %}{% set M = c.models %}
+<section class="card reveal"><h2>Proportions des classes (stratify=y)</h2>
+<div class="table-wrap"><table><thead><tr><th>Jeu</th><th>Reste (0)</th><th>Quitte (1)</th></tr></thead><tbody>
+{% for k, lab in [('global','Échantillon ('~r.meta.n_sample~')'),('train','Train ('~r.meta.n_train~')'),('test','Test ('~r.meta.n_test~')')] %}<tr><td>{{ lab }}</td><td>{{ c.proportions[k]['0'] }}%</td><td>{{ c.proportions[k]['1'] }}%</td></tr>{% endfor %}</tbody></table></div></section>
+
+<section class="card reveal"><h2>Tableau comparatif</h2>
+<div class="table-wrap"><table class="cmp"><thead><tr><th>Modèle</th><th>Accuracy</th><th>Precision (macro)</th><th>Recall (macro)</th><th>F1 (macro)</th><th class="focus">Recall classe 1</th><th>CV F1 macro (moy ± σ)</th></tr></thead><tbody>
+{% for n in c.order %}{% set m = M[n] %}<tr>
+<td><b>{{ n }}</b></td><td>{{ '%.3f'|format(m.accuracy) }}</td><td>{{ '%.3f'|format(m.precision) }}</td><td>{{ '%.3f'|format(m.recall) }}</td>
+<td class="{{ 'best' if n == c.best_f1 }}">{{ '%.3f'|format(m.f1) }}</td>
+<td class="focus {{ 'best' if n == c.best_recall }}">{{ '%.3f'|format(m.recall_1) }}</td>
+<td class="{{ 'best' if n == c.most_stable }}">{{ '%.3f'|format(m.cv_mean) }} ± {{ '%.3f'|format(m.cv_std) }}</td></tr>{% endfor %}
+</tbody></table></div>
+<p class="note">Surligné : meilleur F1, meilleur Recall classe 1, CV la plus stable (σ le plus faible : {{ c.most_stable }}). Le jeu de test ne contient que {{ r.meta.n_test }} employés : une différence de 1 ou 2 prédictions change sensiblement les scores.</p></section>
+
+<section class="card focus-card reveal"><h2>🎯 Focus : Recall de la classe 1</h2>
+<div class="grid-2">
+<div><div class="table-wrap"><table><thead><tr><th>Modèle</th><th>Recall cl. 1</th><th>Faux négatifs</th><th>Faux positifs</th></tr></thead><tbody>
+{% for n in c.order %}{% set m = M[n] %}<tr><td>{{ n }}</td><td class="{{ 'best' if n == c.best_recall }}"><b>{{ '%.3f'|format(m.recall_1) }}</b></td><td class="{{ 'best' if n == c.least_fn }}">{{ m.fn }}</td><td>{{ m.fp }}</td></tr>{% endfor %}</tbody></table></div>
+<p>Meilleur Recall classe 1 : <b>{{ c.best_recall }}</b> · Meilleure Accuracy : <b>{{ c.best_acc }}</b> · Moins de faux négatifs : <b>{{ c.least_fn }}</b>.</p></div>
+<div>
+<div class="mini bad"><b>Faux négatif (FN)</b> — l'employé va partir, mais le modèle dit qu'il reste. L'entreprise n'agit pas et perd un talent : <b>coût élevé</b>.</div><br>
+<div class="mini ok"><b>Faux positif (FP)</b> — l'employé reste, mais le modèle prédit un départ. L'entreprise investit dans la fidélisation « pour rien » : <b>coût faible</b>.</div>
+</div></div></section>
+
+<section class="grid-2">
+{{ fig('f1_compare', 'F1-score macro par modèle') }}
+{{ fig('recall_compare', 'Recall classe 1 par modèle') }}
+</section>
+{{ fig('cm_all', 'Matrices de confusion (test)', 'Lecture : lignes = réalité, colonnes = prédiction. Case en bas à gauche = faux négatifs, en haut à droite = faux positifs.') }}
+
+<section class="card reveal"><h2>Classification report</h2>
+{% for n in c.order %}<details {{ 'open' if n == c.best_f1 }}><summary>{{ n }} <small>(accuracy {{ '%.3f'|format(M[n].accuracy) }})</small></summary>
+<div class="table-wrap"><table><thead><tr><th></th><th>precision</th><th>recall</th><th>f1-score</th><th>support</th></tr></thead><tbody>
+{% for row in M[n].report %}<tr><td>{{ row.label }}</td><td>{{ row.precision }}</td><td>{{ row.recall }}</td><td>{{ row['f1-score'] }}</td><td>{{ row.support }}</td></tr>{% endfor %}</tbody></table></div></details>{% endfor %}</section>
+
+{{ fig('feat_importance', 'Importance des variables (Random Forest)', 'Variables les plus importantes : ' ~ (c.importances.items() | list)[:3] | map('first') | join(', ') ~ '.') }}
+
+<section class="card reveal"><h2>Questions d'analyse (C1–C7)</h2>
+{% for a in c.answers %}<div class="qa"><b>{{ a.id }}. {{ a.q }}</b><p>{{ a.a }}</p></div>{% endfor %}
+<p class="note">Les performances restent modestes et reposent sur un petit échantillon : ces résultats sont expérimentaux.</p></section>
+{% endblock %}

@@ -1,0 +1,17 @@
+# Environnements virtuels
+.venv/
+venv/
+env/
+
+# Python
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# Fichiers temporaires / IDE / OS
+*.log
+*.tmp
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

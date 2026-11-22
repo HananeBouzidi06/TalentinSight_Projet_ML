@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% from "base.html" import profile_form with context %}
+{% block title %}Simulation RH · TalentInsight{% endblock %}
+{% block h1 %}Simulation RH{% endblock %}
+{% block lead %}Saisissez un profil : salaire estimé et risque d'attrition, avec le même preprocessing que l'entraînement.{% endblock %}
+{% block content %}
+<section class="card reveal">
+  {{ profile_form('#sim-result', 'full') }}
+</section>
+<p class="disclaimer reveal">⚠️ Ces prédictions sont <b>expérimentales</b>. Elles reposent sur un petit échantillon et ne doivent <b>pas</b> être utilisées seules pour prendre des décisions concernant des employés. Modèle d'attrition utilisé : <b>{{ r.sim.classifier }}</b>.</p>
+<p class="note reveal">{{ r.sim.classifier_reason }}</p>
+{% endblock %}

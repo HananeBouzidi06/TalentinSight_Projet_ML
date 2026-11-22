@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% from "base.html" import fig %}
+{% block title %}Dashboard · TalentInsight Analytics{% endblock %}
+{% block h1 %}TalentInsight Analytics{% endblock %}
+{% block lead %}Prédiction du Salaire &amp; Détection de l'Attrition des Employés · Human Resources Analytics — Machine Learning{% endblock %}
+{% block content %}
+{% set k = r.kpi %}
+<section class="kpis">
+  <div class="kpi reveal"><span>Employés dans le CSV</span><b data-count="{{ k.n_raw }}">{{ k.n_raw }}</b><small>{{ k.n_clean }} après suppression de {{ k.n_raw - k.n_clean }} doublons</small></div>
+  <div class="kpi reveal"><span>Échantillon analysé</span><b data-count="{{ k.n_sample }}">{{ k.n_sample }}</b><small>stratifié, random_state=42</small></div>
+  <div class="kpi reveal"><span>Variables</span><b data-count="{{ k.n_cols }}">{{ k.n_cols }}</b><small>+ ratio_satisfaction (créée)</small></div>
+  <div class="kpi reveal"><span>Salaire moyen</span><b>{{ k.mean_salary }}</b><small>MAD / mois</small></div>
+  <div class="kpi reveal warn"><span>Taux d'attrition</span><b>{{ k.attr_rate }}%</b><small>sur {{ k.n_clean }} employés</small></div>
+  <div class="kpi reveal"><span>Employés restants</span><b data-count="{{ k.stay }}">{{ k.stay }}</b><small>attrition = 0</small></div>
+  <div class="kpi reveal warn"><span>Employés partis</span><b data-count="{{ k.leave }}">{{ k.leave }}</b><small>attrition = 1</small></div>
+</section>
+<p class="note">Les KPI sont calculés sur les {{ k.n_clean }} employés uniques du CSV original ; les graphiques et les modèles utilisent un échantillon de {{ k.n_sample }} employés.</p>
+
+<section class="card reveal">
+  <h2>Présentation</h2>
+  <p>TalentInsight Analytics accompagne les entreprises marocaines dans l'exploitation de leurs données RH. L'application couvre le cycle complet d'un projet ML supervisé : exploration, préparation, modélisation et simulation.</p>
+  <div class="grid-3">
+    <div class="mini"><b>💰 Prédire le salaire</b><br>Régression linéaire du salaire mensuel en MAD selon le profil.</div>
+    <div class="mini"><b>🎯 Détecter l'attrition</b><br>Comparaison de 4 modèles (SVM, KNN, Decision Tree, Random Forest).</div>
+    <div class="mini"><b>🧭 Aider à décider</b><br>Identifier les leviers RH : satisfaction, charge de travail, etc.</div>
+  </div>
+</section>
+<section class="grid-2">
+  {{ fig('attrition_count', 'Répartition de l\'attrition', r.eda.interp.attrition) }}
+  {{ fig('salary_dept', 'Salaire par département', r.eda.interp.salary_dept) }}
+</section>
+{% endblock %}

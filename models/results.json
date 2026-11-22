@@ -1,0 +1,877 @@
+{
+ "meta": {
+  "random_state": 42,
+  "n_raw": 612,
+  "n_clean": 600,
+  "n_sample": 200,
+  "n_train": 160,
+  "n_test": 40,
+  "n_cols": 15,
+  "features": [
+   "age",
+   "genre",
+   "ville",
+   "diplome",
+   "departement",
+   "niveau_poste",
+   "experience_ans",
+   "anciennete_entreprise",
+   "nb_formations_annee",
+   "heures_sup_mois",
+   "satisfaction_travail",
+   "satisfaction_manager",
+   "ratio_satisfaction"
+  ]
+ },
+ "kpi": {
+  "n_raw": 612,
+  "n_clean": 600,
+  "n_sample": 200,
+  "n_cols": 15,
+  "mean_salary": "23 202",
+  "attr_rate": 46.8,
+  "stay": 319,
+  "leave": 281
+ },
+ "eda": {
+  "head": [
+   {
+    "id": 1,
+    "age": 49,
+    "genre": "Femme",
+    "ville": "Rabat",
+    "diplome": "Doctorat",
+    "departement": "Finance",
+    "niveau_poste": "Intermediaire",
+    "experience_ans": 20,
+    "anciennete_entreprise": 1.0,
+    "nb_formations_annee": 2.0,
+    "heures_sup_mois": 20.0,
+    "satisfaction_travail": 1.6,
+    "satisfaction_manager": 3.9,
+    "salaire_mensuel_mad": 29200,
+    "attrition": 1
+   },
+   {
+    "id": 2,
+    "age": 57,
+    "genre": "Homme",
+    "ville": "Agadir",
+    "diplome": "Doctorat",
+    "departement": "Ventes",
+    "niveau_poste": "Manager",
+    "experience_ans": 27,
+    "anciennete_entreprise": 19.0,
+    "nb_formations_annee": 1.0,
+    "heures_sup_mois": 12.0,
+    "satisfaction_travail": 3.1,
+    "satisfaction_manager": 3.1,
+    "salaire_mensuel_mad": 44100,
+    "attrition": 0
+   },
+   {
+    "id": 3,
+    "age": 48,
+    "genre": "Femme",
+    "ville": "Casablanca",
+    "diplome": "Bac+5",
+    "departement": "Ventes",
+    "niveau_poste": "Manager",
+    "experience_ans": 22,
+    "anciennete_entreprise": 20.0,
+    "nb_formations_annee": 8.0,
+    "heures_sup_mois": 23.0,
+    "satisfaction_travail": 2.3,
+    "satisfaction_manager": 4.5,
+    "salaire_mensuel_mad": 53800,
+    "attrition": 1
+   },
+   {
+    "id": 4,
+    "age": 24,
+    "genre": "Homme",
+    "ville": "Casablanca",
+    "diplome": "Bac+3",
+    "departement": "Informatique",
+    "niveau_poste": "Junior",
+    "experience_ans": 0,
+    "anciennete_entreprise": 0.0,
+    "nb_formations_annee": 0.0,
+    "heures_sup_mois": 16.0,
+    "satisfaction_travail": 2.6,
+    "satisfaction_manager": 2.1,
+    "salaire_mensuel_mad": 8600,
+    "attrition": 0
+   },
+   {
+    "id": 5,
+    "age": 36,
+    "genre": "Femme",
+    "ville": "Rabat",
+    "diplome": "Bac+3",
+    "departement": "Ressources Humaines",
+    "niveau_poste": "Manager",
+    "experience_ans": 14,
+    "anciennete_entreprise": 8.0,
+    "nb_formations_annee": 2.0,
+    "heures_sup_mois": 5.0,
+    "satisfaction_travail": 4.4,
+    "satisfaction_manager": 1.8,
+    "salaire_mensuel_mad": 26000,
+    "attrition": 0
+   },
+   {
+    "id": 6,
+    "age": 22,
+    "genre": "Femme",
+    "ville": "Agadir",
+    "diplome": "Bac+3",
+    "departement": "Ressources Humaines",
+    "niveau_poste": "Junior",
+    "experience_ans": 1,
+    "anciennete_entreprise": 0.0,
+    "nb_formations_annee": 6.0,
+    "heures_sup_mois": 32.0,
+    "satisfaction_travail": 3.6,
+    "satisfaction_manager": 1.1,
+    "salaire_mensuel_mad": 5100,
+    "attrition": 1
+   },
+   {
+    "id": 7,
+    "age": 44,
+    "genre": "Femme",
+    "ville": "Tanger",
+    "diplome": "Bac+2",
+    "departement": "Marketing",
+    "niveau_poste": "Senior",
+    "experience_ans": 24,
+    "anciennete_entreprise": 17.0,
+    "nb_formations_annee": 5.0,
+    "heures_sup_mois": 23.0,
+    "satisfaction_travail": 3.2,
+    "satisfaction_manager": 4.8,
+    "salaire_mensuel_mad": 25300,
+    "attrition": 0
+   },
+   {
+    "id": 8,
+    "age": 37,
+    "genre": "Femme",
+    "ville": "Marrakech",
+    "diplome": "Doctorat",
+    "departement": "Finance",
+    "niveau_poste": "Manager",
+    "experience_ans": 7,
+    "anciennete_entreprise": 7.0,
+    "nb_formations_annee": 0.0,
+    "heures_sup_mois": 13.0,
+    "satisfaction_travail": 2.8,
+    "satisfaction_manager": 3.6,
+    "salaire_mensuel_mad": 39300,
+    "attrition": 0
+   }
+  ],
+  "columns": [
+   "id",
+   "age",
+   "genre",
+   "ville",
+   "diplome",
+   "departement",
+   "niveau_poste",
+   "experience_ans",
+   "anciennete_entreprise",
+   "nb_formations_annee",
+   "heures_sup_mois",
+   "satisfaction_travail",
+   "satisfaction_manager",
+   "salaire_mensuel_mad",
+   "attrition"
+  ],
+  "shape": [
+   612,
+   15
+  ],
+  "dtypes": [
+   {
+    "col": "id",
+    "dtype": "int64",
+    "missing": 0
+   },
+   {
+    "col": "age",
+    "dtype": "int64",
+    "missing": 0
+   },
+   {
+    "col": "genre",
+    "dtype": "object",
+    "missing": 0
+   },
+   {
+    "col": "ville",
+    "dtype": "object",
+    "missing": 0
+   },
+   {
+    "col": "diplome",
+    "dtype": "object",
+    "missing": 0
+   },
+   {
+    "col": "departement",
+    "dtype": "object",
+    "missing": 0
+   },
+   {
+    "col": "niveau_poste",
+    "dtype": "object",
+    "missing": 0
+   },
+   {
+    "col": "experience_ans",
+    "dtype": "int64",
+    "missing": 0
+   },
+   {
+    "col": "anciennete_entreprise",
+    "dtype": "float64",
+    "missing": 11
+   },
+   {
+    "col": "nb_formations_annee",
+    "dtype": "float64",
+    "missing": 5
+   },
+   {
+    "col": "heures_sup_mois",
+    "dtype": "float64",
+    "missing": 7
+   },
+   {
+    "col": "satisfaction_travail",
+    "dtype": "float64",
+    "missing": 9
+   },
+   {
+    "col": "satisfaction_manager",
+    "dtype": "float64",
+    "missing": 5
+   },
+   {
+    "col": "salaire_mensuel_mad",
+    "dtype": "int64",
+    "missing": 0
+   },
+   {
+    "col": "attrition",
+    "dtype": "int64",
+    "missing": 0
+   }
+  ],
+  "describe": [
+   {
+    "variable": "id",
+    "count": 612.0,
+    "mean": 306.5,
+    "std": 176.81,
+    "min": 1.0,
+    "25%": 153.75,
+    "50%": 306.5,
+    "75%": 459.25,
+    "max": 612.0
+   },
+   {
+    "variable": "age",
+    "count": 612.0,
+    "mean": 39.66,
+    "std": 10.61,
+    "min": 22.0,
+    "25%": 30.0,
+    "50%": 39.0,
+    "75%": 49.0,
+    "max": 58.0
+   },
+   {
+    "variable": "experience_ans",
+    "count": 612.0,
+    "mean": 15.62,
+    "std": 10.7,
+    "min": 0.0,
+    "25%": 6.0,
+    "50%": 16.0,
+    "75%": 24.0,
+    "max": 35.0
+   },
+   {
+    "variable": "anciennete_entreprise",
+    "count": 601.0,
+    "mean": 6.37,
+    "std": 5.87,
+    "min": 0.0,
+    "25%": 1.0,
+    "50%": 5.0,
+    "75%": 10.0,
+    "max": 20.0
+   },
+   {
+    "variable": "nb_formations_annee",
+    "count": 607.0,
+    "mean": 3.91,
+    "std": 2.62,
+    "min": 0.0,
+    "25%": 2.0,
+    "50%": 4.0,
+    "75%": 6.0,
+    "max": 8.0
+   },
+   {
+    "variable": "heures_sup_mois",
+    "count": 605.0,
+    "mean": 20.26,
+    "std": 11.9,
+    "min": 0.0,
+    "25%": 10.0,
+    "50%": 20.0,
+    "75%": 31.0,
+    "max": 40.0
+   },
+   {
+    "variable": "satisfaction_travail",
+    "count": 603.0,
+    "mean": 2.88,
+    "std": 1.11,
+    "min": 1.0,
+    "25%": 1.9,
+    "50%": 2.9,
+    "75%": 3.8,
+    "max": 5.0
+   },
+   {
+    "variable": "satisfaction_manager",
+    "count": 607.0,
+    "mean": 3.08,
+    "std": 1.18,
+    "min": 1.0,
+    "25%": 2.0,
+    "50%": 3.2,
+    "75%": 4.1,
+    "max": 5.0
+   },
+   {
+    "variable": "salaire_mensuel_mad",
+    "count": 612.0,
+    "mean": 23146.57,
+    "std": 12230.08,
+    "min": 4900.0,
+    "25%": 13500.0,
+    "50%": 20900.0,
+    "75%": 30500.0,
+    "max": 73700.0
+   },
+   {
+    "variable": "attrition",
+    "count": 612.0,
+    "mean": 0.47,
+    "std": 0.5,
+    "min": 0.0,
+    "25%": 0.0,
+    "50%": 0.0,
+    "75%": 1.0,
+    "max": 1.0
+   }
+  ],
+  "missing_total": 37,
+  "dup_full": 0,
+  "dup_no_id": 12,
+  "attr_counts_sample": {
+   "0": 106,
+   "1": 94
+  },
+  "interp": {
+   "missing": "Le CSV contient 37 valeurs manquantes au total, reparties sur 5 colonnes numeriques (anciennete_entreprise: 11, satisfaction_travail: 9, heures_sup_mois: 7, nb_formations_annee: 5, satisfaction_manager: 5).",
+   "attrition": "Dans l'echantillon de 200 employes, 47.0% quittent l'entreprise et 53.0% restent : les classes sont quasi equilibrees, mais on analyse tout de meme les metriques par classe.",
+   "salary": "Salaire moyen 23 220 MAD, median 21 550 MAD. Coefficient d'asymetrie = 0.58 : distribution asymetrique a droite (quelques salaires eleves tirent la moyenne vers le haut). Un histogramme ne permet pas de conclure formellement a la normalite.",
+   "salary_dept": "Mediane la plus haute : Finance (29 700 MAD) ; la plus basse : Operations (15 600 MAD). Ecart de 14 100 MAD entre departements.",
+   "salary_level": "Salaire median par niveau : Junior 9 600 MAD | Intermediaire 16 550 MAD | Senior 27 300 MAD | Manager 35 500 MAD.",
+   "corr": "Variables les plus correlees avec le salaire : age (+0.27), experience_ans (+0.23), anciennete_entreprise (+0.15).",
+   "attr_dept": "Taux le plus eleve : Finance (53.8%) ; le plus bas : Informatique (40.5%). Avec ~30 employes par departement dans l'echantillon, ces ecarts sont a interpreter avec prudence.",
+   "attr_sat": "Taux d'attrition par tranche de satisfaction : [1-2[ : 59.6% | [2-3[ : 54.7% | [3-4[ : 37.3% | [4-5] : 38.6%.",
+   "scatter": "Correlation experience / salaire : +0.23."
+  }
+ },
+ "prep": {
+  "dup_removed": 12,
+  "dup_full": 0,
+  "missing_total": 37,
+  "medians": {
+   "anciennete_entreprise": 5.0,
+   "nb_formations_annee": 4.0,
+   "heures_sup_mois": 19.0,
+   "satisfaction_travail": 3.0,
+   "satisfaction_manager": 3.25
+  },
+  "outliers": {
+   "age_lt_18": 0,
+   "age_gt_65": 0,
+   "salaire_negatif": 0,
+   "salaire_nul": 0
+  },
+  "age_range": [
+   22,
+   58
+  ],
+  "salary_range": [
+   4900,
+   73700
+  ],
+  "missing_after_sample": 0,
+  "encoders": {
+   "genre": {
+    "Femme": 0,
+    "Homme": 1
+   },
+   "ville": {
+    "Agadir": 0,
+    "Casablanca": 1,
+    "Marrakech": 2,
+    "Rabat": 3,
+    "Tanger": 4
+   },
+   "diplome": {
+    "Bac+2": 0,
+    "Bac+3": 1,
+    "Bac+5": 2,
+    "Doctorat": 3
+   },
+   "departement": {
+    "Finance": 0,
+    "Informatique": 1,
+    "Marketing": 2,
+    "Operations": 3,
+    "Ressources Humaines": 4,
+    "Ventes": 5
+   },
+   "niveau_poste": {
+    "Intermediaire": 0,
+    "Junior": 1,
+    "Manager": 2,
+    "Senior": 3
+   }
+  },
+  "scale_cols": [
+   "age",
+   "experience_ans",
+   "anciennete_entreprise",
+   "heures_sup_mois",
+   "satisfaction_travail",
+   "satisfaction_manager",
+   "nb_formations_annee",
+   "ratio_satisfaction"
+  ],
+  "corr_ratio": {
+   "satisfaction_travail": -0.176,
+   "satisfaction_manager": -0.211,
+   "ratio_satisfaction": -0.261
+  },
+  "scaler_mean": {
+   "age": 38.82,
+   "experience_ans": 14.82,
+   "anciennete_entreprise": 6.39,
+   "heures_sup_mois": 19.96,
+   "satisfaction_travail": 2.95,
+   "satisfaction_manager": 3.06,
+   "nb_formations_annee": 3.99,
+   "ratio_satisfaction": 3.01
+  }
+ },
+ "reg": {
+  "mae": 7666.08,
+  "mse": 92109841.23,
+  "rmse": 9597.39,
+  "r2": 0.4284,
+  "r2_train": 0.5069,
+  "cv_scores": [
+   0.5192,
+   0.2619,
+   0.4798,
+   0.416,
+   0.3485
+  ],
+  "cv_mean": 0.4051,
+  "cv_std": 0.0921,
+  "shapiro_p": 0.4867,
+  "answers": [
+   {
+    "id": "R1",
+    "q": "R² sur le jeu de test - le modele explique-t-il bien la variance ?",
+    "a": "R² test = 0.428 : le modele explique 42.8% de la variance du salaire. Performance faible."
+   },
+   {
+    "id": "R2",
+    "q": "Interpretation du RMSE",
+    "a": "RMSE = 9 597 MAD (MAE = 7 666 MAD) : en moyenne, la prediction s'ecarte d'environ 9 597 MAD du salaire reel (salaire moyen de l'echantillon : 23 220 MAD, soit 41%)."
+   },
+   {
+    "id": "R3",
+    "q": "R² test vs R² de la validation croisee - overfitting / underfitting ?",
+    "a": "R² train = 0.507, R² test = 0.428, R² CV = 0.405 ± 0.092. L'ecart train/CV est notable : risque de surapprentissage. Le R² est bas : sous-apprentissage possible (modele lineaire trop simple ou variables insuffisantes). L'ecart-type de la CV (0.092) mesure la variabilite selon les folds ; le jeu de test ne contient que 40 employes."
+   },
+   {
+    "id": "R4",
+    "q": "Variables ayant le plus d'impact sur le salaire",
+    "a": "Correlations avec le salaire (EDA) : age (+0.27), experience_ans (+0.23), anciennete_entreprise (+0.15). Variables categorielles : le niveau de poste differencie nettement les salaires (Junior 9 600 | Intermediaire 16 550 | Senior 27 300 | Manager 35 500 MAD, medianes)."
+   },
+   {
+    "id": "R5",
+    "q": "Reel vs predit - alignement sur y = x",
+    "a": "Plus les points sont proches de la droite y = x, meilleure est la prediction. Ici R² = 0.428 et MAE = 7 666 MAD : l'alignement est moyen."
+   },
+   {
+    "id": "R6",
+    "q": "Distribution des residus (bonus)",
+    "a": "Moyenne des residus = -1 150 MAD, asymetrie = 0.44. Test de Shapiro-Wilk : W = 0.974, p = 0.487 (normalite non rejetee a 5% : hypothese de normalite des erreurs plausible). Test base sur seulement 40 residus."
+   }
+  ]
+ },
+ "clf": {
+  "models": {
+   "SVM": {
+    "accuracy": 0.625,
+    "precision": 0.6291,
+    "recall": 0.6178,
+    "f1": 0.6132,
+    "recall_1": 0.4737,
+    "precision_1": 0.6429,
+    "f1_1": 0.5455,
+    "f1_0": 0.6809,
+    "recall_0": 0.7619,
+    "tn": 16,
+    "fp": 5,
+    "fn": 10,
+    "tp": 9,
+    "report": [
+     {
+      "label": "0",
+      "precision": 0.615,
+      "recall": 0.762,
+      "f1-score": 0.681,
+      "support": 21
+     },
+     {
+      "label": "1",
+      "precision": 0.643,
+      "recall": 0.474,
+      "f1-score": 0.545,
+      "support": 19
+     },
+     {
+      "label": "macro avg",
+      "precision": 0.629,
+      "recall": 0.618,
+      "f1-score": 0.613,
+      "support": 40
+     },
+     {
+      "label": "weighted avg",
+      "precision": 0.628,
+      "recall": 0.625,
+      "f1-score": 0.617,
+      "support": 40
+     }
+    ],
+    "cv_scores": [
+     0.4286,
+     0.6946,
+     0.5308,
+     0.6267,
+     0.7163
+    ],
+    "cv_mean": 0.5994,
+    "cv_std": 0.1071,
+    "train_f1": 0.7535
+   },
+   "KNN": {
+    "accuracy": 0.5,
+    "precision": 0.49,
+    "recall": 0.4912,
+    "f1": 0.4792,
+    "recall_1": 0.3158,
+    "precision_1": 0.4615,
+    "f1_1": 0.375,
+    "f1_0": 0.5833,
+    "recall_0": 0.6667,
+    "tn": 14,
+    "fp": 7,
+    "fn": 13,
+    "tp": 6,
+    "report": [
+     {
+      "label": "0",
+      "precision": 0.519,
+      "recall": 0.667,
+      "f1-score": 0.583,
+      "support": 21
+     },
+     {
+      "label": "1",
+      "precision": 0.462,
+      "recall": 0.316,
+      "f1-score": 0.375,
+      "support": 19
+     },
+     {
+      "label": "macro avg",
+      "precision": 0.49,
+      "recall": 0.491,
+      "f1-score": 0.479,
+      "support": 40
+     },
+     {
+      "label": "weighted avg",
+      "precision": 0.491,
+      "recall": 0.5,
+      "f1-score": 0.484,
+      "support": 40
+     }
+    ],
+    "cv_scores": [
+     0.3379,
+     0.4818,
+     0.3273,
+     0.5589,
+     0.6875
+    ],
+    "cv_mean": 0.4787,
+    "cv_std": 0.1362,
+    "train_f1": 0.6931
+   },
+   "Decision Tree": {
+    "accuracy": 0.65,
+    "precision": 0.6516,
+    "recall": 0.6516,
+    "f1": 0.65,
+    "recall_1": 0.6842,
+    "precision_1": 0.619,
+    "f1_1": 0.65,
+    "f1_0": 0.65,
+    "recall_0": 0.619,
+    "tn": 13,
+    "fp": 8,
+    "fn": 6,
+    "tp": 13,
+    "report": [
+     {
+      "label": "0",
+      "precision": 0.684,
+      "recall": 0.619,
+      "f1-score": 0.65,
+      "support": 21
+     },
+     {
+      "label": "1",
+      "precision": 0.619,
+      "recall": 0.684,
+      "f1-score": 0.65,
+      "support": 19
+     },
+     {
+      "label": "macro avg",
+      "precision": 0.652,
+      "recall": 0.652,
+      "f1-score": 0.65,
+      "support": 40
+     },
+     {
+      "label": "weighted avg",
+      "precision": 0.653,
+      "recall": 0.65,
+      "f1-score": 0.65,
+      "support": 40
+     }
+    ],
+    "cv_scores": [
+     0.5625,
+     0.6532,
+     0.5308,
+     0.619,
+     0.5934
+    ],
+    "cv_mean": 0.5918,
+    "cv_std": 0.0427,
+    "train_f1": 1.0
+   },
+   "Random Forest": {
+    "accuracy": 0.65,
+    "precision": 0.6491,
+    "recall": 0.6491,
+    "f1": 0.6491,
+    "recall_1": 0.6316,
+    "precision_1": 0.6316,
+    "f1_1": 0.6316,
+    "f1_0": 0.6667,
+    "recall_0": 0.6667,
+    "tn": 14,
+    "fp": 7,
+    "fn": 7,
+    "tp": 12,
+    "report": [
+     {
+      "label": "0",
+      "precision": 0.667,
+      "recall": 0.667,
+      "f1-score": 0.667,
+      "support": 21
+     },
+     {
+      "label": "1",
+      "precision": 0.632,
+      "recall": 0.632,
+      "f1-score": 0.632,
+      "support": 19
+     },
+     {
+      "label": "macro avg",
+      "precision": 0.649,
+      "recall": 0.649,
+      "f1-score": 0.649,
+      "support": 40
+     },
+     {
+      "label": "weighted avg",
+      "precision": 0.65,
+      "recall": 0.65,
+      "f1-score": 0.65,
+      "support": 40
+     }
+    ],
+    "cv_scores": [
+     0.401,
+     0.6761,
+     0.4682,
+     0.6476,
+     0.5608
+    ],
+    "cv_mean": 0.5508,
+    "cv_std": 0.1044,
+    "train_f1": 1.0
+   }
+  },
+  "order": [
+   "SVM",
+   "KNN",
+   "Decision Tree",
+   "Random Forest"
+  ],
+  "best_f1": "Decision Tree",
+  "best_recall": "Decision Tree",
+  "best_acc": "Decision Tree",
+  "least_fn": "Decision Tree",
+  "most_stable": "Decision Tree",
+  "near_random": false,
+  "importances": {
+   "ratio_satisfaction": 0.1386,
+   "satisfaction_manager": 0.1153,
+   "heures_sup_mois": 0.1087,
+   "age": 0.1086,
+   "anciennete_entreprise": 0.104,
+   "satisfaction_travail": 0.0997,
+   "experience_ans": 0.0851,
+   "nb_formations_annee": 0.0625,
+   "departement": 0.0468,
+   "ville": 0.0441,
+   "niveau_poste": 0.035,
+   "diplome": 0.0342,
+   "genre": 0.0175
+  },
+  "proportions": {
+   "global": {
+    "0": 53.0,
+    "1": 47.0
+   },
+   "train": {
+    "0": 53.1,
+    "1": 46.9
+   },
+   "test": {
+    "0": 52.5,
+    "1": 47.5
+   }
+  },
+  "answers": [
+   {
+    "id": "C1",
+    "q": "Meilleur modele selon F1 macro vs Recall classe 1",
+    "a": "F1 macro : Decision Tree (0.650). Recall classe 1 : Decision Tree (0.684). Les deux conclusions sont identiques."
+   },
+   {
+    "id": "C2",
+    "q": "Pourquoi une Accuracy elevee peut etre trompeuse",
+    "a": "Meilleure Accuracy : Decision Tree (0.650), mais son Recall classe 1 est de 0.684 avec 6 faux negatif(s) sur 19 employes qui quittent. L'Accuracy melange les deux classes et masque les erreurs sur celle qui coute le plus cher (departs non detectes)."
+   },
+   {
+    "id": "C3",
+    "q": "Classe la mieux predite",
+    "a": "F1 moyen des 4 modeles : classe 0 = 0.645, classe 1 = 0.551. Les modeles sont plus performants sur la classe 0 (reste). Le jeu de test est petit : l'ecart peut etre du au hasard."
+   },
+   {
+    "id": "C4",
+    "q": "Decision Tree : overfitting vs Random Forest",
+    "a": "F1 macro train / test / CV - Decision Tree : 1.000 / 0.650 / 0.592 ; Random Forest : 1.000 / 0.649 / 0.551. Ecart train-CV important pour le Decision Tree : signe de surapprentissage ; idem pour le Random Forest."
+   },
+   {
+    "id": "C5",
+    "q": "Variables les plus importantes",
+    "a": "Random Forest : ratio_satisfaction (0.139), satisfaction_manager (0.115), heures_sup_mois (0.109). EDA : correlation satisfaction_travail / attrition = -0.18 ; correlation ratio_satisfaction / attrition = -0.26 (echantillon)."
+   },
+   {
+    "id": "C6",
+    "q": "Recommandations RH (a valider avec des experts metier)",
+    "a": "Au vu des variables les plus influentes du modele : suivre un indicateur global de satisfaction (moyenne travail + manager) ; accompagner et former les managers (la relation manager-employe) ; surveiller la charge de travail et les heures supplementaires. "
+   },
+   {
+    "id": "C7",
+    "q": "Matrice de confusion du meilleur modele (bonus)",
+    "a": "Decision Tree : 13 vrais negatifs, 8 faux positifs, 6 faux negatifs, 13 vrais positifs. Zone de faiblesse principale : les faux positifs (alertes inutiles)."
+   }
+  ]
+ },
+ "sim": {
+  "ranges": {
+   "age": [
+    18,
+    65
+   ],
+   "experience_ans": [
+    0,
+    47
+   ],
+   "anciennete_entreprise": [
+    0,
+    47
+   ],
+   "nb_formations_annee": [
+    0,
+    20
+   ],
+   "heures_sup_mois": [
+    0,
+    80
+   ],
+   "satisfaction_travail": [
+    1,
+    5
+   ],
+   "satisfaction_manager": [
+    1,
+    5
+   ]
+  },
+  "ref_ratio_mean": 2.99,
+  "ref_overtime_median": 20.0,
+  "classifier": "Random Forest",
+  "has_proba": true,
+  "classifier_reason": "Random Forest est utilise pour la simulation car il fournit une probabilite d'attrition moyennee sur 100 arbres. Un arbre de decision seul ne renvoie que des probabilites de 0 ou 1 ; le meilleur F1 test est Decision Tree (0.650) contre 0.649 pour Random Forest."
+ }
+}

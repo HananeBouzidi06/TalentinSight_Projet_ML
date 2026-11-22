@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% from "base.html" import fig %}
+{% block title %}EDA · TalentInsight{% endblock %}
+{% block h1 %}Exploration des données{% endblock %}
+{% block lead %}Ce que contient réellement le fichier rh_employes.csv.{% endblock %}
+{% block content %}
+{% set e = r.eda %}
+<section class="kpis">
+  <div class="kpi reveal"><span>Lignes × colonnes</span><b>{{ e.shape[0] }} × {{ e.shape[1] }}</b></div>
+  <div class="kpi reveal warn"><span>Valeurs manquantes</span><b>{{ e.missing_total }}</b><small>cellules (réel)</small></div>
+  <div class="kpi reveal warn"><span>Doublons</span><b>{{ e.dup_no_id }}</b><small>lignes identiques hors « id »</small></div>
+</section>
+<p class="note">Vérification sur le CSV : {{ e.dup_full }} doublon(s) si l'on compare toutes les colonnes (l'identifiant « id » est unique), mais {{ e.dup_no_id }} lignes sont des doublons de profil lorsque « id » est ignoré. Ce sont ces {{ e.dup_no_id }} lignes qui sont supprimées.</p>
+
+<section class="card reveal"><h2>Aperçu du dataset (8 premières lignes)</h2>
+<div class="table-wrap"><table><thead><tr>{% for c in e.columns %}<th>{{ c }}</th>{% endfor %}</tr></thead>
+<tbody>{% for row in e.head %}<tr>{% for c in e.columns %}<td>{{ row[c] if row[c] is not none else '—' }}</td>{% endfor %}</tr>{% endfor %}</tbody></table></div></section>
+
+<section class="grid-2">
+<div class="card reveal"><h2>Types de variables</h2>
+<div class="table-wrap"><table><thead><tr><th>Colonne</th><th>Type</th><th>Manquants</th></tr></thead>
+<tbody>{% for d in e.dtypes %}<tr><td>{{ d.col }}</td><td>{{ d.dtype }}</td><td class="{{ 'hl' if d.missing }}">{{ d.missing }}</td></tr>{% endfor %}</tbody></table></div></div>
+{{ fig('missing_bar', 'Valeurs manquantes par colonne', e.interp.missing) }}
+</section>
+
+<section class="card reveal"><h2>Résumé statistique (describe)</h2>
+<div class="table-wrap"><table><thead><tr><th>variable</th><th>count</th><th>mean</th><th>std</th><th>min</th><th>25%</th><th>50%</th><th>75%</th><th>max</th></tr></thead>
+<tbody>{% for d in e.describe %}<tr><td>{{ d.variable }}</td><td>{{ d['count'] }}</td><td>{{ d.mean }}</td><td>{{ d.std }}</td><td>{{ d.min }}</td><td>{{ d['25%'] }}</td><td>{{ d['50%'] }}</td><td>{{ d['75%'] }}</td><td>{{ d.max }}</td></tr>{% endfor %}</tbody></table></div></section>
+
+<h2 class="sec">Graphiques (échantillon de {{ r.meta.n_sample }} employés)</h2>
+<section class="grid-2">
+{{ fig('attrition_count', 'Répartition de l\'attrition', e.interp.attrition) }}
+{{ fig('salary_dist', 'Distribution des salaires', e.interp.salary) }}
+{{ fig('salary_dept', 'Salaire selon le département', e.interp.salary_dept) }}
+{{ fig('salary_level', 'Salaire selon le niveau de poste', e.interp.salary_level) }}
+{{ fig('corr_heatmap', 'Corrélations entre variables', e.interp.corr) }}
+{{ fig('scatter_exp', 'Expérience vs salaire', e.interp.scatter) }}
+{{ fig('attr_dept', 'Attrition selon le département', e.interp.attr_dept) }}
+{{ fig('attr_sat', 'Attrition selon la satisfaction', e.interp.attr_sat) }}
+</section>
+{% endblock %}

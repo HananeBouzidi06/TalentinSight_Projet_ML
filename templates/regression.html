@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% from "base.html" import fig, profile_form with context %}
+{% block title %}Régression · TalentInsight{% endblock %}
+{% block h1 %}Régression : prédiction du salaire{% endblock %}
+{% block lead %}LinearRegression — salaire mensuel en MAD. Évaluation sur {{ r.meta.n_test }} employés de test.{% endblock %}
+{% block content %}
+{% set g = r.reg %}
+<section class="kpis">
+  <div class="kpi reveal"><span>MAE</span><b>{{ '%.0f'|format(g.mae) }}</b><small>MAD</small></div>
+  <div class="kpi reveal"><span>MSE</span><b>{{ '{:,.0f}'.format(g.mse).replace(',', ' ') }}</b><small>MAD²</small></div>
+  <div class="kpi reveal"><span>RMSE</span><b>{{ '%.0f'|format(g.rmse) }}</b><small>MAD</small></div>
+  <div class="kpi reveal accent"><span>R² (test)</span><b>{{ '%.3f'|format(g.r2) }}</b><small>R² train : {{ '%.3f'|format(g.r2_train) }}</small></div>
+</section>
+<section class="card reveal"><h2>Validation croisée (5 folds, scoring = r2)</h2>
+<div class="table-wrap"><table><thead><tr><th>Fold 1</th><th>Fold 2</th><th>Fold 3</th><th>Fold 4</th><th>Fold 5</th><th>Moyenne</th><th>Écart-type</th></tr></thead>
+<tbody><tr>{% for s in g.cv_scores %}<td>{{ '%.3f'|format(s) }}</td>{% endfor %}<td class="hl">{{ '%.3f'|format(g.cv_mean) }}</td><td class="hl">{{ '%.3f'|format(g.cv_std) }}</td></tr></tbody></table></div>
+<p class="note">Calculée sur le jeu d'entraînement, avec le preprocessing refait dans chaque fold.</p></section>
+<section class="grid-2">
+{{ fig('reg_actual_pred', 'Salaires réels vs prédits') }}
+{{ fig('reg_residuals', 'Distribution des résidus') }}
+</section>
+<section class="card reveal"><h2>Questions d'analyse (R1–R6)</h2>
+{% for a in g.answers %}<div class="qa"><b>{{ a.id }}. {{ a.q }}</b><p>{{ a.a }}</p></div>{% endfor %}</section>
+<section class="card reveal"><h2>💰 Estimer un salaire</h2>
+<p>Saisissez un profil pour obtenir une estimation du salaire mensuel.</p>
+{{ profile_form('#reg-result', 'salary') }}</section>
+{% endblock %}

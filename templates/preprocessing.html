@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% from "base.html" import fig %}
+{% block title %}Preprocessing · TalentInsight{% endblock %}
+{% block h1 %}Data Preprocessing{% endblock %}
+{% block lead %}Du CSV brut à des données prêtes pour le Machine Learning — sans fuite de données.{% endblock %}
+{% block content %}
+{% set p = r.prep %}
+<section class="steps">
+  <div class="step reveal"><i>1</i><div><h3>Chargement du CSV</h3><p>{{ r.meta.n_raw }} lignes × {{ r.meta.n_cols }} colonnes. Le fichier original n'est jamais modifié.</p></div></div>
+  <div class="step reveal"><i>2</i><div><h3>Exploration initiale</h3><p>{{ p.missing_total }} valeurs manquantes (colonnes numériques) ; voir la page EDA.</p></div></div>
+  <div class="step reveal"><i>3</i><div><h3>Suppression des doublons</h3><p>{{ p.dup_removed }} lignes supprimées (doublons de profil, hors « id »). Doublons avec « id » inclus : {{ p.dup_full }}. Reste : {{ r.meta.n_clean }} employés.</p></div></div>
+  <div class="step reveal"><i>4</i><div><h3>Valeurs manquantes → médiane</h3><p>Médianes apprises sur l'<b>entraînement uniquement</b> :<br>{% for k, v in p.medians.items() %}<code>{{ k }} = {{ v }}</code> {% endfor %}</p></div></div>
+  <div class="step reveal"><i>5</i><div><h3>Valeurs aberrantes</h3><p>Âge &lt; 18 : {{ p.outliers.age_lt_18 }} · Âge &gt; 65 : {{ p.outliers.age_gt_65 }} · Salaires négatifs : {{ p.outliers.salaire_negatif }} · Salaires nuls : {{ p.outliers.salaire_nul }}. Âge observé : {{ p.age_range[0] }}–{{ p.age_range[1] }} ans ; salaire : {{ p.salary_range[0] }}–{{ p.salary_range[1] }} MAD. Aucune correction nécessaire.</p></div></div>
+  <div class="step reveal"><i>6</i><div><h3>Label Encoding</h3><p>{% for c, m in p.encoders.items() %}<b>{{ c }}</b> : {% for k, v in m.items() %}{{ k }}→{{ v }}{{ ", " if not loop.last }}{% endfor %}<br>{% endfor %}</p></div></div>
+  <div class="step reveal"><i>7</i><div><h3>Feature Engineering</h3><p><code>ratio_satisfaction = (satisfaction_travail + satisfaction_manager) / 2</code><br>Corrélation avec l'attrition (échantillon) : travail {{ p.corr_ratio.satisfaction_travail }} · manager {{ p.corr_ratio.satisfaction_manager }} · <b>ratio {{ p.corr_ratio.ratio_satisfaction }}</b>. Le ratio résume les deux perceptions en un seul indicateur de climat de travail.</p></div></div>
+  <div class="step reveal"><i>8</i><div><h3>StandardScaler</h3><p>Appliqué à : {{ p.scale_cols | join(', ') }} (moyenne/écart-type appris sur l'entraînement).</p></div></div>
+</section>
+<section class="card reveal"><h2>Anti-fuite de données (Data Leakage)</h2>
+<p>Ordre appliqué : échantillon de {{ r.meta.n_sample }} employés → <b>split 80/20</b> (stratifié sur l'attrition, random_state=42 : {{ r.meta.n_train }} train / {{ r.meta.n_test }} test) → apprentissage des médianes et du scaler sur le train → transformation du test. La validation croisée refait le preprocessing à l'intérieur de chaque fold (Pipeline). Le même objet de preprocessing est réutilisé dans les simulations.</p>
+<p class="note">Un seul split (stratifié) est partagé entre la régression et la classification pour garder un preprocessing identique.</p></section>
+{{ fig('before_after', 'Avant / après nettoyage', 'À gauche : les valeurs manquantes de l\'échantillon disparaissent après imputation par la médiane (apprise sur le train). À droite : « age » conserve sa forme mais est recentrée (moyenne ≈ 0, écart-type ≈ 1).') }}
+{% endblock %}

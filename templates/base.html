@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}TalentInsight Analytics{% endblock %}</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+{% macro fig(name, title, text="") -%}
+<figure class="card fig reveal">
+  <h3>{{ title }}</h3>
+  <img src="{{ url_for('static', filename='images/' ~ name ~ '.png') }}" alt="{{ title }}" loading="lazy">
+  {% if text %}<figcaption><b>Interprétation :</b> {{ text }}</figcaption>{% endif %}
+</figure>
+{%- endmacro %}
+
+{% macro profile_form(target, mode) -%}
+<form class="profile-form" data-predict data-mode="{{ mode }}" data-target="{{ target }}" novalidate>
+  <div class="grid-form">
+    <label>Âge<input type="number" name="age" min="{{ ranges.age[0] }}" max="{{ ranges.age[1] }}" value="35" required></label>
+    <label>Genre<select name="genre">{% for o in options.genre %}<option>{{ o }}</option>{% endfor %}</select></label>
+    <label>Ville<select name="ville">{% for o in options.ville %}<option>{{ o }}</option>{% endfor %}</select></label>
+    <label>Diplôme<select name="diplome">{% for o in options.diplome %}<option>{{ o }}</option>{% endfor %}</select></label>
+    <label>Département<select name="departement">{% for o in options.departement %}<option>{{ o }}</option>{% endfor %}</select></label>
+    <label>Niveau de poste<select name="niveau_poste">{% for o in options.niveau_poste %}<option>{{ o }}</option>{% endfor %}</select></label>
+    <label>Expérience (années)<input type="number" name="experience_ans" min="0" max="{{ ranges.experience_ans[1] }}" value="10" required></label>
+    <label>Ancienneté entreprise (années)<input type="number" name="anciennete_entreprise" min="0" max="{{ ranges.anciennete_entreprise[1] }}" value="4" required></label>
+    <label>Formations cette année<input type="number" name="nb_formations_annee" min="0" max="{{ ranges.nb_formations_annee[1] }}" value="3" required></label>
+    <label>Heures sup. / mois<input type="number" name="heures_sup_mois" min="0" max="{{ ranges.heures_sup_mois[1] }}" value="15" required></label>
+    <label>Satisfaction au travail <output>3.0</output>/5<input type="range" name="satisfaction_travail" min="1" max="5" step="0.1" value="3"></label>
+    <label>Satisfaction manager <output>3.0</output>/5<input type="range" name="satisfaction_manager" min="1" max="5" step="0.1" value="3"></label>
+  </div>
+  <button class="btn" type="submit">{{ "Estimer le salaire" if mode == "salary" else "Lancer la simulation" }}</button>
+</form>
+<div id="{{ target[1:] }}" class="result-box" aria-live="polite"></div>
+{%- endmacro %}
+
+<button class="menu-btn" aria-label="Menu" onclick="document.body.classList.toggle('nav-open')">☰</button>
+<aside class="sidebar">
+  <a class="logo" href="{{ url_for('index') }}"><span class="logo-mark">TI</span><span>TalentInsight<small>Analytics</small></span></a>
+  <nav>
+    {% set items = [('index','Dashboard','📊'),('eda','Exploration (EDA)','🔎'),('preprocessing','Preprocessing','🧹'),('regression','Régression salaire','💰'),('classification','Classification attrition','🎯'),('simulation','Simulation RH','🧪'),('apropos','À propos','ℹ️')] %}
+    {% for ep, label, ico in items %}
+    <a href="{{ url_for(ep) }}" class="{{ 'active' if active == ep }}"><span>{{ ico }}</span>{{ label }}</a>
+    {% endfor %}
+  </nav>
+  <p class="side-foot">Module Machine Learning<br>Formateur : SALHI Abderrahman</p>
+  <div class="side-credit">Développé par<b>Hanane Bouzidi</b></div>
+</aside>
+<main class="content">
+  <header class="page-head reveal">
+    <h1>{% block h1 %}{% endblock %}</h1>
+    <p>{% block lead %}{% endblock %}</p>
+  </header>
+  {% block content %}{% endblock %}
+  <footer class="foot">TalentInsight Analytics · Prédictions expérimentales à but pédagogique.</footer>
+</main>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
