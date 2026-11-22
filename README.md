@@ -56,3 +56,5 @@ TalentInsight-Analytics/
 
 ## Avertissement
 Les prédictions sont **expérimentales** (petit échantillon) et ne doivent pas être utilisées seules pour prendre des décisions concernant des employés.
+## Lien du Projet :
+https://talentinsightprojetml.vercel.app/
